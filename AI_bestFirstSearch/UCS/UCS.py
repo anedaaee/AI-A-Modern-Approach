@@ -66,13 +66,13 @@ class UniformCasrSearch:
     def expand(self,parent):
 
         childs = parent.childs
-        pathCost = parent.path_cost
+
 
         Expend = []
         try :
             for child in childs :
 
-                DBNode = database.request(f"select * from citys where name = '{child}'")
+                DBNode = database.request(f"select * from citys where name = '{child}';")
 
                 if len(DBNode) > 0 :
                     self.numberOfNode += 1
