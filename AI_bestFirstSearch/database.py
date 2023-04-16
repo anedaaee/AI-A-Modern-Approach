@@ -11,5 +11,4 @@ def request(query) :
     # Create dictionary from rows and columns
     data = [dict(zip(columns, row)) for row in rows]
 
-    #json_result = json.dumps(data)
     return data
