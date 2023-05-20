@@ -16,7 +16,7 @@ class PriorityQueue:
             if not self.isEmpty():
                 max_val = 0
                 for i in range(len(self.queue)):
-                    if self.queue[i].path_cost > self.queue[max_val].path_cost:
+                    if self.queue[i].path_cost < self.queue[max_val].path_cost:
                         max_val = i
                 item = self.queue[max_val]
                 del self.queue[max_val]
