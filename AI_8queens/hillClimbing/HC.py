@@ -1,5 +1,6 @@
 from State import State
 import copy
+
 class HillClimbing:
 
     def __init__(self,problemState):
