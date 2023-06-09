@@ -1,24 +1,19 @@
 import copy
-
 from Node import Node
-from database import request
 import queue
-import json
 import numpy as np
 class BreadthFirstSearch:
-        def __init__(self,initStateName ):
+        def __init__(self,initStateArray ):
 
                 self.goalStateArray = np.array([[0,1,2],[3,4,5],[6,7,8]])
 
                 self.frontire = queue.Queue()
                 self.reached = []
 
-                self.initState = Node(initStateName,None,0,1)
+                self.initState = Node(initStateArray,None,0,2)
                 self.numberOfNode = 1
                 self.frontire.put(self.initState)
                 self.reached.append(self.initState)
-
-                result = request(f"select * from citys where name = '{initStateName}';")
 
         def search(self):
                 try:
