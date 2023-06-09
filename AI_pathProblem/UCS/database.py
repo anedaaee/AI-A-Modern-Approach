@@ -1,7 +1,7 @@
 import mysql.connector
 import json
 def request(query) :
-    db = mysql.connector.connect(user='root', password='ensALI!)(PASS82', host='localhost', database='AI')
+    db = mysql.connector.connect(user='root', password='', host='localhost', database='AI')
     cursor = db.cursor()
     cursor.execute(query)
     rows = cursor.fetchall()
