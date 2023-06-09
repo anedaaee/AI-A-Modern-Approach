@@ -1,0 +1,12 @@
+from GBFS import GreadyBreadthFirstSearch
+import  time
+import numpy as np
+
+start_time = time.time()
+
+
+bfs = GreadyBreadthFirstSearch( np.array([[0,4,2],[3,1,5],[7,8,6]]))
+node = bfs.search()
+bfs.printPath(node)
+
+print("time : "+str(time.time() - start_time))
