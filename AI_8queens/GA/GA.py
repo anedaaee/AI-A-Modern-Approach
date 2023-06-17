@@ -98,8 +98,8 @@ class GeneticAlgorithm:
         for gen in self.population :
             if gen.value == 0 :
                 return gen
-            else:
-                return False
+
+        return False
 
     def saveBestSol(self,NGeneration):
         for gen in self.population :
