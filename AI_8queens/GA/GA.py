@@ -20,32 +20,45 @@ class GeneticAlgorithm:
     def getSumOfFitness(self):
         sum = 0
         for gen in self.population:
-            sum += gen.value
+            sum += gen.fitnes
         return sum
 
     def evaluate_fitness(self):
         sum = self.getSumOfFitness()
         for gen in self.population :
-            gen.setP(int(gen.value / sum * 100))
+            #print(((gen.fitnes / sum ) * 8))
+            gen.setP(round((gen.fitnes / sum ) * 8))
 
     def selection(self):
 
-        fitness_values = []
-        for get in self.population:
-            fitness_values.append(get.P)
+        #fitness_values = []
+        #for gen in self.population:
+        #    fitness_values.append(gen.P)
         parent = []
-
-        for _ in range(self.numberOfParent):
-            minFitness = min(fitness_values)
-            index = fitness_values.index(minFitness)
-            parent.append(self.population[index])
-            fitness_values[index] = float('inf')
+        for gen in self.population:
+            for _ in range(gen.P):
+                parent.append(gen)
+            if len(parent) == self.numberOfParent:
+                break
+        #for gen in self.population:
+        if len(parent) < self.numberOfParent:
+            x = len(parent)
+            for i in (x,self.numberOfParent):
+                parent.append(self.population[random.randint(0,7)])
+        #    print(str(gen.P))
+        #for _ in range(self.numberOfParent):
+        #    minFitness = min(fitness_values)
+        #    index = fitness_values.index(minFitness)
+        #    parent.append(self.population[index])
+        #    fitness_values[index] = float('inf')
 
         return parent
     def crossover(self,parents):
         offspring = []
-        for _ in range(self.numOffspring):
-            parent1, parent2 = random.sample(parents, 2)
+        for _ in range( 0 , int(self.numberOfParent/2)):
+            #parent1, parent2 = random.sample(parents, 2)
+            parent1 = parents[2 * _]
+            parent2 = parents[2 * _ + 1]
             crossoverPoint = random.randint(1, 6)
             child1State = parent1.state[:crossoverPoint] + parent2.state[crossoverPoint:]
             child2State = parent1.state[crossoverPoint:] + parent2.state[:crossoverPoint]
@@ -57,20 +70,29 @@ class GeneticAlgorithm:
         return offspring
 
     def mutation(self,offspring):
+        sum = self.getSumOfFitness()
         mutated_offspring = []
-        for child in offspring:
-            if random.random() > self.mutation_rate:
+        childIndx = random.randint(0, 7)
+        for i in range(0,len(offspring)):
+            child = offspring[i]
+            if i == childIndx:
                 mutation_point = random.randint(0, 7)
                 child.state[mutation_point] = random.randint(0, 7)
             mutated_offspring.append(child)
         return mutated_offspring
+        #for child in offspring:
+        #    if random.random() > self.mutation_rate:
+        #        mutation_point = random.randint(0, 7)
+        #        child.state[mutation_point] = random.randint(0, 7)
+        #    mutated_offspring.append(child)
+        #return mutated_offspring
 
     def printGeneration(self,population,NGeneration):
         print(str(NGeneration)+"'th generation:")
         print("[",end="")
 
         for gen in population :
-            print("{ value : " + str(gen.value)+" , P : "+str(gen.P)+" ,state : "+str(gen.state)+"},",end="")
+            print("{ value : " + str(gen.value)+" , P : "+str(gen.P)+" ,state : "+str(gen.state)+","+" ,fitness = "+str(gen.fitnes)+"}",end="")
         print("]")
     def checkForBestSolve(self):
         for gen in self.population :
@@ -112,6 +134,7 @@ class GeneticAlgorithm:
             newPopulation = []
             for _ in range(0 , int(self.numberOfParent / 2)):
                 offspring = self.crossover(parent)
+                #print(len(offspring))
                 mutated_offspring = self.mutation(offspring)
                 child1 = mutated_offspring[0]
                 child2 = mutated_offspring[1]

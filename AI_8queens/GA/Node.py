@@ -3,7 +3,7 @@ class Node:
     def __init__(self,state ):
         self.state = state
         self.value = self.getValue(state)
-
+        self.fitnes = 28 - self.value
     def getValue(selfs,state):
         value = 0
         for y1 in range(0,len(state)) :
