@@ -16,4 +16,4 @@ def getValue(state):
 
     return value
 
-print(str(getValue([2,2,2,2,2,2,2,2])))
+print(str(getValue([0,1,2,3,4,5,6,7])))
